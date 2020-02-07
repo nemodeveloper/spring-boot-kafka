@@ -1,0 +1,23 @@
+# Server config
+server:
+  http2:
+    enabled: true
+  servlet:
+    context-path: /kafka-producer/api
+  port: 8081
+  forward-headers-strategy: native
+
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      client-id: kafka-producer
+      batch-size: 100
+      topic: worker-test
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: worker-consumer-group
+      id:
+        single: worker-consumer-single
+        batch: worker-consumer-batch
+      topic: worker-test

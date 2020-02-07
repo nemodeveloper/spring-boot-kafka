@@ -1,0 +1,30 @@
+// Zookeeper
+
+docker run -d \
+--name zookeeper \
+-p 2181:2181 \
+wurstmeister/zookeeper
+
+// Kafka
+
+docker run -d \
+--name kafka \
+-p 7203:7203 \
+-p 9092:9092 \
+-e KAFKA_ADVERTISED_PORT=9092 \
+-e KAFKA_ADVERTISED_HOST_NAME=10.9.5.144 \
+-e KAFKA_ZOOKEEPER_CONNECT=10.9.5.144 \
+wurstmeister/kafka
+
+docker run \
+--rm wurstmeister/kafka kafka-topics.sh \
+--create \
+--topic worker-test \
+--replication-factor 1 \
+--partitions 1 \
+--zookeeper 10.9.5.144:2181
+
+docker run \
+--rm wurstmeister/kafka kafka-topics.sh \
+--list \
+--zookeeper 10.9.5.144:2181
